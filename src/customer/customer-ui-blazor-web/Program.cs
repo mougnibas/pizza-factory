@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.Extensions.Hosting;
 using Mougnibas.PizzaFactory.Customer.Business;
 using Mougnibas.PizzaFactory.Customer.Contract;
 
@@ -7,8 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 
-// Add integrated service (not the microservice version)
-builder.Services.AddSingleton<IService, ServiceImpl>();
+// Add custom service (require an active microservice to be run)
+builder.Services.AddSingleton<IService, Service>();
 
 var app = builder.Build();
 
