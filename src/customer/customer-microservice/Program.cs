@@ -47,3 +47,11 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+/// <summary>
+/// Make the Program class public using a partial class declaration.
+/// This is mandatory to be able to use integration test.
+/// See https://learn.microsoft.com/en-us/aspnet/core/test/integration-tests?view=aspnetcore-6.0.
+/// Also see https://codeburst.io/integration-tests-for-asp-net-core-web-apis-using-mstest-f4e222a3bc8a.
+/// </summary>
+public partial class Program { }
