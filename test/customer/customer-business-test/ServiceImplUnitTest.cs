@@ -15,7 +15,6 @@
 // You should have received a copy of the GNU General Public License
 // along with PizzaFactory.  If not, see <https://www.gnu.org/licenses/>.
 
-using Mougnibas.PizzaFactory.Customer.Business;
 using Mougnibas.PizzaFactory.Customer.Contract;
 
 namespace Mougnibas.PizzaFactory.Customer.Business.Test;
@@ -27,16 +26,15 @@ public class ServiceImplUnitTest
     public void TestDefaultGet()
     {
         // Arrange
-        IService service = new ServiceImpl();
-        Pizza[] expected = 
+        ServiceImpl service = new ServiceImpl();
+        Pizza[] expected =
         {
             new Pizza("My first pizza"),
             new Pizza("My second pizza")
         };
 
-
         // Act
-        Pizza[] actual = service.get();
+        Pizza[] actual = service.Get();
 
         // Assert
         CollectionAssert.AreEqual(expected, actual);

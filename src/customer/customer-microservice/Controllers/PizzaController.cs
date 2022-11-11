@@ -16,7 +16,6 @@
 // along with PizzaFactory.  If not, see <https://www.gnu.org/licenses/>.
 
 using Microsoft.AspNetCore.Mvc;
-using Mougnibas.PizzaFactory.Customer.Business;
 using Mougnibas.PizzaFactory.Customer.Contract;
 
 namespace Mougnibas.PizzaFactory.Customer.Microservice.Controllers;
@@ -39,6 +38,12 @@ public class PizzaController : ControllerBase
     [HttpGet]
     public Pizza[] Get()
     {
-        return _service.get();
+        // Log some information
+        if (_logger.IsEnabled(LogLevel.Information))
+        {
+            _logger.LogInformation("Get is invoked");
+        }
+        
+        return _service.Get();
     }
 }

@@ -41,7 +41,7 @@ namespace Mougnibas.PizzaFactory.Customer.Contract
         /// <param name="obj">The object to compare from.</param>
         public override bool Equals(object? obj)
         {
-            return  obj is Pizza pizza &&
+            return obj is Pizza pizza &&
                    this.ToString().Equals(pizza.ToString(), StringComparison.InvariantCulture);
         }
 

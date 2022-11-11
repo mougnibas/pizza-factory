@@ -16,29 +16,51 @@
 // along with PizzaFactory.  If not, see <https://www.gnu.org/licenses/>.
 
 
-using Mougnibas.PizzaFactory.Customer.Contract;
+using Microsoft.AspNetCore.Mvc.Testing;
 
-namespace Mougnibas.PizzaFactory.Customer.Microservice.Test;
+namespace Mougnibas.PizzaFactory.Customer.Contract.Test;
 
+/// <summary>
+/// See https://codeburst.io/integration-tests-for-asp-net-core-web-apis-using-mstest-f4e222a3bc8a.
+/// </summary>
 [TestClass]
-public class ServiceUnitTest
+public class ServiceIntegrationTest
 {
+    private static WebApplicationFactory<Program> _factory;
+
+    [ClassInitialize]
+#pragma warning disable IDE0060 // Remove unused parameter
+    public static void ClassInit(TestContext testContext)
+#pragma warning restore IDE0060 // Remove unused parameter
+    {
+        _factory = new WebApplicationFactory<Program>().WithWebHostBuilder(builder =>
+        {
+            // ... Configure test services
+        });
+    }
+
     [TestMethod]
-    public void TestDefaultGet()
+    public async Task TestDefaultGet()
     {
         // Arrange
-        IService service = new Service();
+        HttpClient httpClient = _factory.CreateDefaultClient();
+        Service service = new Service(httpClient);
         Pizza[] expected =
         {
             new Pizza("My first pizza"),
             new Pizza("My second pizza")
         };
 
-
         // Act
-        Pizza[] actual = service.get();
+        Pizza[] actual = await service.GetAsync();
 
         // Assert
         CollectionAssert.AreEqual(expected, actual);
+    }
+
+    [ClassCleanup]
+    public static void ClassCleanup()
+    {
+        _factory.Dispose();
     }
 }

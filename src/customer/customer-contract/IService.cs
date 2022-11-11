@@ -19,6 +19,8 @@ namespace Mougnibas.PizzaFactory.Customer.Contract
 {
     public interface IService
     {
-        Pizza[] get();
+        Pizza[] Get();
+
+        Task<Pizza[]> GetAsync();
     }
 }

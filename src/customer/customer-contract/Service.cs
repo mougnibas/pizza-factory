@@ -21,16 +21,23 @@ namespace Mougnibas.PizzaFactory.Customer.Contract
 {
     public class Service : IService
     {
-        public Pizza[] get()
+
+        private readonly HttpClient httpClient;
+
+        public Service(HttpClient httpClient)
         {
-            // A simple http client
-            HttpClient httpClient = new HttpClient();
+            this.httpClient = httpClient;
+        }
+
+        public Pizza[] Get()
+        {
+            // TODO This synchronous method is actually never tested.
 
             // URL to call
             string uri = "http://localhost:5034/api/pizza";
 
             // Make a synchronous call to get a json result
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, uri);
+            HttpRequestMessage request = new(HttpMethod.Get, uri);
             HttpResponseMessage response = httpClient.Send(request);
             response.EnsureSuccessStatusCode();
             HttpContent content = response.Content;
@@ -43,7 +50,33 @@ namespace Mougnibas.PizzaFactory.Customer.Contract
             {
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase
             };
-            Pizza[] result = JsonSerializer.Deserialize<Pizza[]>(jsonString, options);
+            Pizza[]? result = JsonSerializer.Deserialize<Pizza[]>(jsonString, options);
+
+            // We could get a null result, but we can't return a null value
+            result ??= Array.Empty<Pizza>();
+
+            // Return the result
+            return result;
+        }
+
+        public async Task<Pizza[]> GetAsync()
+        {
+            // URL to call
+            string uri = "api/pizza";
+
+            // Make an asynchronous call to get a json result
+            string jsonString = await httpClient.GetStringAsync(uri);
+
+            // Deserialize the json
+            // We need to use this option to do it properly
+            var options = new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            };
+            Pizza[]? result = JsonSerializer.Deserialize<Pizza[]>(jsonString, options);
+
+            // We could get a null result, but we can't return a null value
+            result ??= Array.Empty<Pizza>();
 
             // Return the result
             return result;

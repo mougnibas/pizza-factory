@@ -1,11 +1,10 @@
-<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <!-- Base properties -->
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
 	<RootNamespace>Mougnibas.PizzaFactory.Customer.Contract.Test</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <!-- NuGet metadata properties -->
@@ -16,14 +15,20 @@
   <!-- Private dependency -->
   <ItemGroup>
     <ProjectReference Include="..\..\..\src\customer\customer-contract\customer-contract.csproj" />
+	<ProjectReference Include="..\..\..\src\customer\customer-microservice\customer-microservice.csproj" />
   </ItemGroup>
 
-  <!-- MSTest dependencies -->
+  <!-- Public MSTest dependencies -->
   <ItemGroup>
+	<PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="7.0.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.2" />
     <PackageReference Include="MSTest.TestAdapter" Version="2.2.10" />
     <PackageReference Include="MSTest.TestFramework" Version="2.2.10" />
-    <PackageReference Include="coverlet.collector" Version="3.1.2" />
+  </ItemGroup>
+
+  <!-- public code style related dependencies -->
+  <ItemGroup>
+	<PackageReference Include="coverlet.collector" Version="3.1.2" />
   </ItemGroup>
 
 </Project>

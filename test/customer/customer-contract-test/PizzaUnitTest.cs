@@ -25,10 +25,10 @@ public class PizzaUnitTest
     public void TestDefaultConstructor()
     {
         // Arrange
-        Pizza expected = new Pizza("My awesome pizza");
+        Pizza expected = new("My awesome pizza");
 
         // Act
-        Pizza actual = new Pizza("My awesome pizza");
+        Pizza actual = new("My awesome pizza");
 
         // Assert
         Assert.AreEqual(expected, actual);

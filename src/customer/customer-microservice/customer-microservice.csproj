@@ -8,14 +8,16 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <!-- Some dependencies -->
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.0" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
-  </ItemGroup>
+  <!-- Private dependencies-->
   <ItemGroup>
     <ProjectReference Include="..\customer-business\customer-business.csproj" />
-    <ProjectReference Include="..\customer-contract\customer-contract.csproj" />
+	<ProjectReference Include="..\customer-contract\customer-contract.csproj" />
+  </ItemGroup>
+
+  <!-- Public dependencies -->
+  <ItemGroup>
+	<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.0" />
+	<PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
 </Project>
