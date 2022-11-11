@@ -16,7 +16,6 @@
 // along with PizzaFactory.  If not, see <https://www.gnu.org/licenses/>.
 
 using Mougnibas.PizzaFactory.Customer.Contract;
-using System.Threading.Tasks;
 
 namespace Mougnibas.PizzaFactory.Customer.Business;
 

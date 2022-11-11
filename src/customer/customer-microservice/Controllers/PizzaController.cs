@@ -16,7 +16,6 @@
 // along with PizzaFactory.  If not, see <https://www.gnu.org/licenses/>.
 
 using Microsoft.AspNetCore.Mvc;
-using Mougnibas.PizzaFactory.Customer.Business;
 using Mougnibas.PizzaFactory.Customer.Contract;
 
 namespace Mougnibas.PizzaFactory.Customer.Microservice.Controllers;

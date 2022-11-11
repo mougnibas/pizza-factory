@@ -48,7 +48,7 @@ namespace Mougnibas.PizzaFactory.Customer.Contract
             {
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase
             };
-            Pizza[] ?result = JsonSerializer.Deserialize<Pizza[]>(jsonString, options);
+            Pizza[]? result = JsonSerializer.Deserialize<Pizza[]>(jsonString, options);
 
             // We could get a null result, but we can't return a null value
             result ??= Array.Empty<Pizza>();
@@ -71,7 +71,7 @@ namespace Mougnibas.PizzaFactory.Customer.Contract
             {
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase
             };
-            Pizza[] ?result = JsonSerializer.Deserialize<Pizza[]>(jsonString, options);
+            Pizza[]? result = JsonSerializer.Deserialize<Pizza[]>(jsonString, options);
 
             // We could get a null result, but we can't return a null value
             result ??= Array.Empty<Pizza>();

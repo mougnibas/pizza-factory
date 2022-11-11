@@ -17,8 +17,6 @@
 
 using Mougnibas.PizzaFactory.Customer.Business;
 using Mougnibas.PizzaFactory.Customer.Contract;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 

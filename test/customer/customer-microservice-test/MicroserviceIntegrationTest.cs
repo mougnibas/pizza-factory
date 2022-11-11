@@ -16,13 +16,8 @@
 // along with PizzaFactory.  If not, see <https://www.gnu.org/licenses/>.
 
 
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Mougnibas.PizzaFactory.Customer.Business;
-using Mougnibas.PizzaFactory.Customer.Contract;
-using Mougnibas.PizzaFactory.Customer.Microservice;
 using System.Net;
-using System.Net.Mail;
 
 namespace Mougnibas.PizzaFactory.Customer.Microservice.Test;
 
