@@ -29,13 +29,13 @@ namespace Mougnibas.PizzaFactory.Customer.Contract
             this.httpClient = httpClient;
         }
 
-        public Pizza[] get()
+        public Pizza[] Get()
         {
             // URL to call
             string uri = "http://localhost:5034/api/pizza";
 
             // Make a synchronous call to get a json result
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, uri);
+            HttpRequestMessage request = new(HttpMethod.Get, uri);
             HttpResponseMessage response = httpClient.Send(request);
             response.EnsureSuccessStatusCode();
             HttpContent content = response.Content;
@@ -57,7 +57,7 @@ namespace Mougnibas.PizzaFactory.Customer.Contract
             return result;
         }
 
-        public async Task<Pizza[]> getAsync()
+        public async Task<Pizza[]> GetAsync()
         {
             // URL to call
             string uri = "api/pizza";

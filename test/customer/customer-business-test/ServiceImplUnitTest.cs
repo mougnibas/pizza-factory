@@ -34,7 +34,7 @@ public class ServiceImplUnitTest
         };
 
         // Act
-        Pizza[] actual = service.get();
+        Pizza[] actual = service.Get();
 
         // Assert
         CollectionAssert.AreEqual(expected, actual);

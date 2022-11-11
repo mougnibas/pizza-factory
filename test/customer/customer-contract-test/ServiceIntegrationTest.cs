@@ -29,7 +29,9 @@ public class ServiceIntegrationTest
     private static WebApplicationFactory<Program> _factory;
 
     [ClassInitialize]
+#pragma warning disable IDE0060 // Remove unused parameter
     public static void ClassInit(TestContext testContext)
+#pragma warning restore IDE0060 // Remove unused parameter
     {
         _factory = new WebApplicationFactory<Program>().WithWebHostBuilder(builder =>
         {
@@ -50,7 +52,7 @@ public class ServiceIntegrationTest
         };
 
         // Act
-        Pizza[] actual = await service.getAsync();
+        Pizza[] actual = await service.GetAsync();
 
         // Assert
         CollectionAssert.AreEqual(expected, actual);

@@ -21,7 +21,7 @@ namespace Mougnibas.PizzaFactory.Customer.Business;
 
 public class ServiceImpl : IService
 {
-    public Pizza[] get()
+    public Pizza[] Get()
     {
         List<Pizza> pizzas = new()
         {
@@ -31,9 +31,9 @@ public class ServiceImpl : IService
         return pizzas.ToArray();
     }
 
-    public Task<Pizza[]> getAsync()
+    public Task<Pizza[]> GetAsync()
     {
-        Pizza[] syncResult = get();
+        Pizza[] syncResult = Get();
         Task<Pizza[]> asyncResult = Task.FromResult(syncResult);
         return asyncResult;
     }

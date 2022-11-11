@@ -38,6 +38,12 @@ public class PizzaController : ControllerBase
     [HttpGet]
     public Pizza[] Get()
     {
-        return _service.get();
+        // Log some information
+        if (_logger.IsEnabled(LogLevel.Information))
+        {
+            _logger.LogInformation("Get is invoked");
+        }
+        
+        return _service.Get();
     }
 }

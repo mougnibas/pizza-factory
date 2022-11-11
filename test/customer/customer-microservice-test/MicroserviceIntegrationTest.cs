@@ -30,7 +30,9 @@ public class MicroserviceIntegrationTest
     private static WebApplicationFactory<Program> _factory;
 
     [ClassInitialize]
+#pragma warning disable IDE0060 // Remove unused parameter
     public static void ClassInit(TestContext testContext)
+#pragma warning restore IDE0060 // Remove unused parameter
     {
         _factory = new WebApplicationFactory<Program>().WithWebHostBuilder(builder =>
         {
