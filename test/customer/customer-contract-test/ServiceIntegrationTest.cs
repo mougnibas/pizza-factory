@@ -44,7 +44,7 @@ public class ServiceIntegrationTest
     {
         // Arrange
         HttpClient httpClient = _factory.CreateDefaultClient();
-        IService service = new Service(httpClient);
+        Service service = new Service(httpClient);
         Pizza[] expected =
         {
             new Pizza("My first pizza"),

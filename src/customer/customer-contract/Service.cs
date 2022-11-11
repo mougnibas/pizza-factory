@@ -31,6 +31,8 @@ namespace Mougnibas.PizzaFactory.Customer.Contract
 
         public Pizza[] Get()
         {
+            // TODO This synchronous method is actually never tested.
+
             // URL to call
             string uri = "http://localhost:5034/api/pizza";
 
