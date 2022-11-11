@@ -10,6 +10,7 @@
 
   <!-- Private dependencies-->
   <ItemGroup>
+	<ProjectReference Include="..\customer-contract\customer-contract.csproj" />
 	<ProjectReference Include="..\customer-microservice\customer-microservice.csproj" />
   </ItemGroup>
 
