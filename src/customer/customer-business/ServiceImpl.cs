@@ -16,6 +16,7 @@
 // along with PizzaFactory.  If not, see <https://www.gnu.org/licenses/>.
 
 using Mougnibas.PizzaFactory.Customer.Contract;
+using System.Threading.Tasks;
 
 namespace Mougnibas.PizzaFactory.Customer.Business;
 
@@ -29,5 +30,12 @@ public class ServiceImpl : IService
             new Pizza("My second pizza")
         };
         return pizzas.ToArray();
+    }
+
+    public Task<Pizza[]> getAsync()
+    {
+        Pizza[] syncResult = get();
+        Task<Pizza[]> asyncResult = Task.FromResult(syncResult);
+        return asyncResult;
     }
 }

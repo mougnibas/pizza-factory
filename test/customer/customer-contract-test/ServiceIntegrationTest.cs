@@ -15,29 +15,56 @@
 // You should have received a copy of the GNU General Public License
 // along with PizzaFactory.  If not, see <https://www.gnu.org/licenses/>.
 
+
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.Testing;
 using Mougnibas.PizzaFactory.Customer.Business;
 using Mougnibas.PizzaFactory.Customer.Contract;
+using Mougnibas.PizzaFactory.Customer.Microservice;
+using System.Net;
+using System.Net.Mail;
 
-namespace Mougnibas.PizzaFactory.Customer.Business.Test;
+namespace Mougnibas.PizzaFactory.Customer.Contract.Test;
 
+/// <summary>
+/// See https://codeburst.io/integration-tests-for-asp-net-core-web-apis-using-mstest-f4e222a3bc8a.
+/// </summary>
 [TestClass]
-public class ServiceImplUnitTest
+public class ServiceIntegrationTest
 {
+    private static WebApplicationFactory<Program> _factory;
+
+    [ClassInitialize]
+    public static void ClassInit(TestContext testContext)
+    {
+        _factory = new WebApplicationFactory<Program>().WithWebHostBuilder(builder =>
+        {
+            // ... Configure test services
+        });
+    }
+
     [TestMethod]
-    public void TestDefaultGet()
+    public async Task TestDefaultGet()
     {
         // Arrange
-        IService service = new ServiceImpl();
-        Pizza[] expected = 
+        HttpClient httpClient = _factory.CreateDefaultClient();
+        IService service = new Service(httpClient);
+        Pizza[] expected =
         {
             new Pizza("My first pizza"),
             new Pizza("My second pizza")
         };
 
         // Act
-        Pizza[] actual = service.get();
+        Pizza[] actual = await service.getAsync();
 
         // Assert
         CollectionAssert.AreEqual(expected, actual);
+    }
+
+    [ClassCleanup]
+    public static void ClassCleanup()
+    {
+        _factory.Dispose();
     }
 }

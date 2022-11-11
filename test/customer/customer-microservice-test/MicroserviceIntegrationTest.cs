@@ -82,26 +82,6 @@ public class MicroserviceIntegrationTest
         Assert.AreEqual(expected, actual);
     }
 
-    [TestMethod]
-    public async Task Hack()
-    {
-        // Arrange
-        HttpClient httpClient = _factory.CreateDefaultClient();
-        Service service = new Service(httpClient);
-        Pizza[] expected =
-        {
-            new Pizza("My first pizza"),
-            new Pizza("My second pizza")
-        };
-
-
-        // Act
-        Pizza[] actual = await service.getAsync();
-
-        // Assert
-        CollectionAssert.AreEqual(expected, actual);
-    }
-
     [ClassCleanup]
     public static void ClassCleanup()
     {
