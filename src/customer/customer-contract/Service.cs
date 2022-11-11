@@ -21,11 +21,16 @@ namespace Mougnibas.PizzaFactory.Customer.Contract
 {
     public class Service : IService
     {
+
+        private readonly HttpClient httpClient;
+
+        public Service(HttpClient httpClient)
+        {
+            this.httpClient = httpClient;
+        }
+
         public Pizza[] get()
         {
-            // A simple http client
-            HttpClient httpClient = new HttpClient();
-
             // URL to call
             string uri = "http://localhost:5034/api/pizza";
 
@@ -36,6 +41,26 @@ namespace Mougnibas.PizzaFactory.Customer.Contract
             HttpContent content = response.Content;
             StreamReader reader = new(content.ReadAsStream());
             string jsonString = reader.ReadToEnd();
+
+            // Deserialize the json
+            // We need to use this option to do it properly
+            var options = new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            };
+            Pizza[] result = JsonSerializer.Deserialize<Pizza[]>(jsonString, options);
+
+            // Return the result
+            return result;
+        }
+
+        public async Task<Pizza[]> getAsync()
+        {
+            // URL to call
+            string uri = "api/pizza";
+
+            // Make an asynchronous call to get a json result
+            string jsonString = await httpClient.GetStringAsync(uri);
 
             // Deserialize the json
             // We need to use this option to do it properly

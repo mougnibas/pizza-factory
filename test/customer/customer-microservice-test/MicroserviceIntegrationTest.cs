@@ -18,6 +18,7 @@
 
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Mougnibas.PizzaFactory.Customer.Business;
 using Mougnibas.PizzaFactory.Customer.Contract;
 using Mougnibas.PizzaFactory.Customer.Microservice;
 using System.Net;
@@ -25,6 +26,9 @@ using System.Net.Mail;
 
 namespace Mougnibas.PizzaFactory.Customer.Microservice.Test;
 
+/// <summary>
+/// See https://codeburst.io/integration-tests-for-asp-net-core-web-apis-using-mstest-f4e222a3bc8a.
+/// </summary>
 [TestClass]
 public class MicroserviceIntegrationTest
 {
@@ -76,6 +80,26 @@ public class MicroserviceIntegrationTest
 
         // Assert
         Assert.AreEqual(expected, actual);
+    }
+
+    [TestMethod]
+    public async Task Hack()
+    {
+        // Arrange
+        HttpClient httpClient = _factory.CreateDefaultClient();
+        Service service = new Service(httpClient);
+        Pizza[] expected =
+        {
+            new Pizza("My first pizza"),
+            new Pizza("My second pizza")
+        };
+
+
+        // Act
+        Pizza[] actual = await service.getAsync();
+
+        // Assert
+        CollectionAssert.AreEqual(expected, actual);
     }
 
     [ClassCleanup]
