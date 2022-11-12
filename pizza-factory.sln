@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "customer-microservice-test"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "customer-ui-blazor-web", "src\customer\customer-ui-blazor-web\customer-ui-blazor-web.csproj", "{7004ED6F-1F15-471F-B052-FE1E9EB02E2F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "customer-ui-blazor-web-test", "test\customer\customer-ui-blazor-web-test\customer-ui-blazor-web-test.csproj", "{7C689A67-DA99-4412-8E9E-377F9C67A313}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -62,6 +64,10 @@ Global
 		{7004ED6F-1F15-471F-B052-FE1E9EB02E2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7004ED6F-1F15-471F-B052-FE1E9EB02E2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7004ED6F-1F15-471F-B052-FE1E9EB02E2F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C689A67-DA99-4412-8E9E-377F9C67A313}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C689A67-DA99-4412-8E9E-377F9C67A313}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C689A67-DA99-4412-8E9E-377F9C67A313}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C689A67-DA99-4412-8E9E-377F9C67A313}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{FE5E17CB-6102-4D5B-984C-1DCD525814D3} = {15E21E1F-E4B2-4006-8EB0-FBA359A5084F}
@@ -73,5 +79,6 @@ Global
 		{674E8571-60D2-41AC-8143-F7B91AB2CE74} = {3A39FF27-67E7-4495-B30D-C3EE9FA390E9}
 		{ADAFBF1B-6F4F-4D6F-AAE1-F3E57F2EC182} = {3A39FF27-67E7-4495-B30D-C3EE9FA390E9}
 		{7004ED6F-1F15-471F-B052-FE1E9EB02E2F} = {FE5E17CB-6102-4D5B-984C-1DCD525814D3}
+		{7C689A67-DA99-4412-8E9E-377F9C67A313} = {3A39FF27-67E7-4495-B30D-C3EE9FA390E9}
 	EndGlobalSection
 EndGlobal
