@@ -58,16 +58,15 @@ public class MicroserviceIntegrationTest
     {
         // Arrange
         var client = _factory.CreateDefaultClient();
-        var expected = """
-            [
-              {
-                "name": "My first pizza"
-              },
-              {
-                "name": "My second pizza"
-              }
-            ]
-            """;
+        var expected = @"[
+  {
+    ""name"": ""My first pizza""
+  },
+  {
+    ""name"": ""My second pizza""
+  }
+]";
+
 
         // Act
         var response = await client.GetAsync("api/pizza");

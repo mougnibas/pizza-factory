@@ -5,7 +5,7 @@
     <ProjectReference Include="..\customer-contract\customer-contract.csproj" />
   </ItemGroup>
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <RootNamespace>Mougnibas.PizzaFactory.Customer.Business</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
