@@ -38,8 +38,9 @@ public class BlazorIntegrationTest
         {
             builder.ConfigureServices(services =>
             {
-                // Inject a standalone service to bypass the microservice dependency
-                // TODO Change this with a better solution
+                // Inject a standalone business service to bypass the microservice dependency.
+                // An end to end approch is needed to effectively test all the components :
+                // ui --> business-connector --> microservice --> actual business logic code.
                 services.AddSingleton<IService, ServiceImpl>();
             });
         });
