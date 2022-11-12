@@ -17,6 +17,8 @@
 
 
 using Microsoft.AspNetCore.Mvc.Testing;
+using Mougnibas.PizzaFactory.Customer.Business;
+using Mougnibas.PizzaFactory.Customer.Contract;
 using System.Net;
 
 namespace Mougnibas.PizzaFactory.Customer.Ui.Blazor.Web.Test;
@@ -30,13 +32,16 @@ public class BlazorIntegrationTest
     private static WebApplicationFactory<Program> _factory;
 
     [ClassInitialize]
-#pragma warning disable IDE0060 // Remove unused parameter
     public static void ClassInit(TestContext testContext)
-#pragma warning restore IDE0060 // Remove unused parameter
     {
         _factory = new WebApplicationFactory<Program>().WithWebHostBuilder(builder =>
         {
-            // ... Configure test services
+            builder.ConfigureServices(services =>
+            {
+                // Inject a standalone service to bypass the microservice dependency
+                // TODO Change this with a better solution
+                services.AddSingleton<IService, ServiceImpl>();
+            });
         });
     }
 
@@ -48,7 +53,7 @@ public class BlazorIntegrationTest
         var expected = HttpStatusCode.OK;
 
         // Act
-        var response = await client.GetAsync("ui/");
+        var response = await client.GetAsync("/");
         var actual = response.StatusCode;
 
         // Assert
