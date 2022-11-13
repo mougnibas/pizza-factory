@@ -24,6 +24,18 @@ namespace Mougnibas.PizzaFactory.Customer.Contract
 
         private readonly HttpClient httpClient;
 
+        /// <summary>
+        /// This constructor create a http client on it's own (bad practice).
+        /// </summary>
+        public Service()
+        {
+            this.httpClient = new HttpClient();
+        }
+
+        /// <summary>
+        /// This constructor require an injection of a http client.
+        /// </summary>
+        /// <param name="httpClient">The injected http client.</param>
         public Service(HttpClient httpClient)
         {
             this.httpClient = httpClient;

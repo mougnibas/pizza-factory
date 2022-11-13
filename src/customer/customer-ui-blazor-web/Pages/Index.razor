@@ -1,0 +1,12 @@
+﻿@page "/"
+@page "/ui/pizza"
+@inject IService myService
+
+<h1>Hello, world!</h1>
+<h2>Pizza list :</h2>
+<ul>
+    @foreach (var pizza in myService.Get())
+{
+    <li>@pizza.Name</li>
+}
+</ul>

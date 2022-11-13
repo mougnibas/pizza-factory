@@ -17,6 +17,7 @@
 
 
 using Microsoft.AspNetCore.Mvc.Testing;
+using Mougnibas.PizzaFactory.Customer.Microservice;
 
 namespace Mougnibas.PizzaFactory.Customer.Contract.Test;
 
@@ -29,9 +30,7 @@ public class ServiceIntegrationTest
     private static WebApplicationFactory<Program> _factory;
 
     [ClassInitialize]
-#pragma warning disable IDE0060 // Remove unused parameter
     public static void ClassInit(TestContext testContext)
-#pragma warning restore IDE0060 // Remove unused parameter
     {
         _factory = new WebApplicationFactory<Program>().WithWebHostBuilder(builder =>
         {
@@ -44,7 +43,7 @@ public class ServiceIntegrationTest
     {
         // Arrange
         HttpClient httpClient = _factory.CreateDefaultClient();
-        Service service = new Service(httpClient);
+        Service service = new(httpClient);
         Pizza[] expected =
         {
             new Pizza("My first pizza"),

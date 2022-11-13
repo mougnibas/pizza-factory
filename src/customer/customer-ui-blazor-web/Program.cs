@@ -15,35 +15,33 @@
 // You should have received a copy of the GNU General Public License
 // along with PizzaFactory.  If not, see <https://www.gnu.org/licenses/>.
 
-using Microsoft.AspNetCore.Mvc;
 using Mougnibas.PizzaFactory.Customer.Contract;
 
-namespace Mougnibas.PizzaFactory.Customer.Microservice.Controllers;
-
-[ApiController]
-[Route("/api/pizza")]
-public class PizzaController : ControllerBase
+namespace Mougnibas.PizzaFactory.Customer.Ui.Blazor.Web
 {
-
-    private readonly ILogger<PizzaController> _logger;
-
-    private readonly IService _service;
-
-    public PizzaController(ILogger<PizzaController> logger, IService service)
+    public class Program
     {
-        _logger = logger;
-        _service = service;
-    }
-
-    [HttpGet]
-    public Pizza[] Get()
-    {
-        // Log some information
-        if (_logger.IsEnabled(LogLevel.Information))
+        static void Main(string[] args)
         {
-            _logger.LogInformation("Get is invoked");
-        }
+            var builder = WebApplication.CreateBuilder(args);
+            builder.Services.AddRazorPages();
+            builder.Services.AddServerSideBlazor();
 
-        return _service.Get();
+            // Add custom service (require an active microservice to be run)
+            builder.Services.AddSingleton<IService, Service>();
+
+            var app = builder.Build();
+
+            app.UseHttpsRedirection();
+
+            app.UseStaticFiles();
+
+            app.UseRouting();
+
+            app.MapBlazorHub();
+            app.MapFallbackToPage("/_Host");
+
+            app.Run();
+        }
     }
 }
