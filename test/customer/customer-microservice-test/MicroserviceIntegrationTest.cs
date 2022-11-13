@@ -19,46 +19,46 @@
 using Microsoft.AspNetCore.Mvc.Testing;
 using System.Net;
 
-namespace Mougnibas.PizzaFactory.Customer.Microservice.Test;
-
-/// <summary>
-/// See https://codeburst.io/integration-tests-for-asp-net-core-web-apis-using-mstest-f4e222a3bc8a.
-/// </summary>
-[TestClass]
-public class MicroserviceIntegrationTest
+namespace Mougnibas.PizzaFactory.Customer.Microservice.Test
 {
-    private static WebApplicationFactory<Program> _factory;
-
-    [ClassInitialize]
-    public static void ClassInit(TestContext testContext)
+    /// <summary>
+    /// See https://codeburst.io/integration-tests-for-asp-net-core-web-apis-using-mstest-f4e222a3bc8a.
+    /// </summary>
+    [TestClass]
+    public class MicroserviceIntegrationTest
     {
-        _factory = new WebApplicationFactory<Program>().WithWebHostBuilder(builder =>
+        private static WebApplicationFactory<Program> _factory;
+
+        [ClassInitialize]
+        public static void ClassInit(TestContext testContext)
         {
-            // ... Configure test services
-        });
-    }
+            _factory = new WebApplicationFactory<Program>().WithWebHostBuilder(builder =>
+            {
+                // ... Configure test services
+            });
+        }
 
-    [TestMethod]
-    public async Task ShouldReturnSuccessResponse()
-    {
-        // Arrange
-        var client = _factory.CreateDefaultClient();
-        var expected = HttpStatusCode.OK;
+        [TestMethod]
+        public async Task ShouldReturnSuccessResponse()
+        {
+            // Arrange
+            var client = _factory.CreateDefaultClient();
+            var expected = HttpStatusCode.OK;
 
-        // Act
-        var response = await client.GetAsync("api/pizza");
-        var actual = response.StatusCode;
+            // Act
+            var response = await client.GetAsync("api/pizza");
+            var actual = response.StatusCode;
 
-        // Assert
-        Assert.AreEqual(expected, actual);
-    }
+            // Assert
+            Assert.AreEqual(expected, actual);
+        }
 
-    [TestMethod]
-    public async Task ShouldReturnThisTwoJsonPizza()
-    {
-        // Arrange
-        var client = _factory.CreateDefaultClient();
-        var expected = @"[
+        [TestMethod]
+        public async Task ShouldReturnThisTwoJsonPizza()
+        {
+            // Arrange
+            var client = _factory.CreateDefaultClient();
+            var expected = @"[
   {
     ""name"": ""My first pizza""
   },
@@ -68,17 +68,18 @@ public class MicroserviceIntegrationTest
 ]";
 
 
-        // Act
-        var response = await client.GetAsync("api/pizza");
-        var actual = await response.Content.ReadAsStringAsync();
+            // Act
+            var response = await client.GetAsync("api/pizza");
+            var actual = await response.Content.ReadAsStringAsync();
 
-        // Assert
-        Assert.AreEqual(expected, actual);
-    }
+            // Assert
+            Assert.AreEqual(expected, actual);
+        }
 
-    [ClassCleanup]
-    public static void ClassCleanup()
-    {
-        _factory.Dispose();
+        [ClassCleanup]
+        public static void ClassCleanup()
+        {
+            _factory.Dispose();
+        }
     }
 }

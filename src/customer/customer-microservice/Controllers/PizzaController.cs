@@ -18,32 +18,33 @@
 using Microsoft.AspNetCore.Mvc;
 using Mougnibas.PizzaFactory.Customer.Contract;
 
-namespace Mougnibas.PizzaFactory.Customer.Microservice.Controllers;
-
-[ApiController]
-[Route("/api/pizza")]
-public class PizzaController : ControllerBase
+namespace Mougnibas.PizzaFactory.Customer.Microservice.Controllers
 {
-
-    private readonly ILogger<PizzaController> _logger;
-
-    private readonly IService _service;
-
-    public PizzaController(ILogger<PizzaController> logger, IService service)
+    [ApiController]
+    [Route("/api/pizza")]
+    public class PizzaController : ControllerBase
     {
-        _logger = logger;
-        _service = service;
-    }
 
-    [HttpGet]
-    public Pizza[] Get()
-    {
-        // Log some information
-        if (_logger.IsEnabled(LogLevel.Information))
+        private readonly ILogger<PizzaController> _logger;
+
+        private readonly IService _service;
+
+        public PizzaController(ILogger<PizzaController> logger, IService service)
         {
-            _logger.LogInformation("Get is invoked");
+            _logger = logger;
+            _service = service;
         }
 
-        return _service.GetPizza();
+        [HttpGet]
+        public Pizza[] Get()
+        {
+            // Log some information
+            if (_logger.IsEnabled(LogLevel.Information))
+            {
+                _logger.LogInformation("Get is invoked");
+            }
+
+            return _service.GetPizza();
+        }
     }
 }

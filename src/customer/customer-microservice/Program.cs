@@ -20,35 +20,35 @@ using Mougnibas.PizzaFactory.Customer.Contract;
 
 namespace Mougnibas.PizzaFactory.Customer.Microservice
 {
-    public class Program
+    public sealed class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
-            var builder = WebApplication.CreateBuilder(args);
+            WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
 
-            builder.Services.AddControllers().AddJsonOptions(options => options.JsonSerializerOptions.WriteIndented = true);
+            _ = builder.Services.AddControllers().AddJsonOptions(options => options.JsonSerializerOptions.WriteIndented = true);
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            _ = builder.Services.AddEndpointsApiExplorer();
+            _ = builder.Services.AddSwaggerGen();
 
             // Add business service
-            builder.Services.AddSingleton<IService, ServiceCore>();
+            _ = builder.Services.AddSingleton<IService, ServiceCore>();
 
-            var app = builder.Build();
+            WebApplication app = builder.Build();
 
             // Configure the HTTP request pipeline.
-            app.UseSwagger();
-            app.UseSwaggerUI(options =>
+            _ = app.UseSwagger();
+            _ = app.UseSwaggerUI(options =>
             {
                 options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
                 options.RoutePrefix = string.Empty;
             });
 
-            app.UseAuthorization();
+            _ = app.UseAuthorization();
 
-            app.MapControllers();
+            _ = app.MapControllers();
 
             app.Run();
         }

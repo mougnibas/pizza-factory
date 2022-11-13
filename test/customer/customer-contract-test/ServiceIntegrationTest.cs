@@ -19,47 +19,48 @@
 using Microsoft.AspNetCore.Mvc.Testing;
 using Mougnibas.PizzaFactory.Customer.Microservice;
 
-namespace Mougnibas.PizzaFactory.Customer.Contract.Test;
-
-/// <summary>
-/// See https://codeburst.io/integration-tests-for-asp-net-core-web-apis-using-mstest-f4e222a3bc8a.
-/// </summary>
-[TestClass]
-public class ServiceIntegrationTest
+namespace Mougnibas.PizzaFactory.Customer.Contract.Test
 {
-    private static WebApplicationFactory<Program> _factory;
-
-    [ClassInitialize]
-    public static void ClassInit(TestContext testContext)
+    /// <summary>
+    /// See https://codeburst.io/integration-tests-for-asp-net-core-web-apis-using-mstest-f4e222a3bc8a.
+    /// </summary>
+    [TestClass]
+    public class ServiceIntegrationTest
     {
-        _factory = new WebApplicationFactory<Program>().WithWebHostBuilder(builder =>
-        {
-            // ... Configure test services
-        });
-    }
+        private static WebApplicationFactory<Program> _factory;
 
-    [TestMethod]
-    public async Task TestDefaultGet()
-    {
-        // Arrange
-        HttpClient httpClient = _factory.CreateDefaultClient();
-        ServiceConnector service = new(httpClient);
-        Pizza[] expected =
+        [ClassInitialize]
+        public static void ClassInit(TestContext testContext)
         {
+            _factory = new WebApplicationFactory<Program>().WithWebHostBuilder(builder =>
+            {
+                // ... Configure test services
+            });
+        }
+
+        [TestMethod]
+        public async Task TestDefaultGet()
+        {
+            // Arrange
+            HttpClient httpClient = _factory.CreateDefaultClient();
+            ServiceConnector service = new(httpClient);
+            Pizza[] expected =
+            {
             new Pizza("My first pizza"),
             new Pizza("My second pizza")
         };
 
-        // Act
-        Pizza[] actual = await service.GetPizzaAsync();
+            // Act
+            Pizza[] actual = await service.GetPizzaAsync();
 
-        // Assert
-        CollectionAssert.AreEqual(expected, actual);
-    }
+            // Assert
+            CollectionAssert.AreEqual(expected, actual);
+        }
 
-    [ClassCleanup]
-    public static void ClassCleanup()
-    {
-        _factory.Dispose();
+        [ClassCleanup]
+        public static void ClassCleanup()
+        {
+            _factory.Dispose();
+        }
     }
 }
