@@ -1,17 +1,36 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <!-- Base properties -->
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-	<RootNamespace>Mougnibas.PizzaFactory.Customer.Ui.Blazor.Web</RootNamespace>
-	<ImplicitUsings>enable</ImplicitUsings>
-	<Nullable>enable</Nullable>
-  </PropertyGroup>
+	<!-- Base properties -->
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<RootNamespace>Mougnibas.PizzaFactory.Customer.Ui.Blazor.Web</RootNamespace>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
 
-  <!-- Private dependencies-->
-  <ItemGroup>
-	<ProjectReference Include="..\customer-contract\customer-contract.csproj" />
-	<ProjectReference Include="..\customer-microservice\customer-microservice.csproj" />
-  </ItemGroup>
+	<!-- Private dependencies-->
+	<ItemGroup>
+		<ProjectReference Include="..\customer-contract\customer-contract.csproj" />
+		<ProjectReference Include="..\customer-microservice\customer-microservice.csproj" />
+	</ItemGroup>
+
+	<!-- Enable code-style analysis (highest level) -->
+	<!-- See https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/overview -->
+	<PropertyGroup>
+		<AnalysisLevel>6.0-all</AnalysisLevel>
+		<AnalysisModeDesign>All</AnalysisModeDesign>
+		<AnalysisModeDocumentation>All</AnalysisModeDocumentation>
+		<AnalysisModeGlobalization>All</AnalysisModeGlobalization>
+		<AnalysisModeInteroperability>All</AnalysisModeInteroperability>
+		<AnalysisModeMaintainability>All</AnalysisModeMaintainability>
+		<AnalysisModeNaming>All</AnalysisModeNaming>
+		<AnalysisModePerformance>All</AnalysisModePerformance>
+		<AnalysisModeSingleFile>All</AnalysisModeSingleFile>
+		<AnalysisModeReliability>All</AnalysisModeReliability>
+		<AnalysisModeSecurity>All</AnalysisModeSecurity>
+		<AnalysisModeStyle>All</AnalysisModeStyle>
+		<AnalysisModeUsage>All</AnalysisModeUsage>
+		<EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+	</PropertyGroup>
 
 </Project>
