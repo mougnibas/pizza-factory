@@ -43,7 +43,7 @@ public class PizzaController : ControllerBase
         {
             _logger.LogInformation("Get is invoked");
         }
-        
+
         return _service.Get();
     }
 }

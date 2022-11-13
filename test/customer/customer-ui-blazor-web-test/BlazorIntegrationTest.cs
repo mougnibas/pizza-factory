@@ -20,7 +20,6 @@ using Bunit;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Mougnibas.PizzaFactory.Customer.Business;
 using Mougnibas.PizzaFactory.Customer.Contract;
-using Mougnibas.PizzaFactory.Customer.Ui.Blazor.Web;
 using System.Net;
 
 namespace Mougnibas.PizzaFactory.Customer.Ui.Blazor.Web.Test;

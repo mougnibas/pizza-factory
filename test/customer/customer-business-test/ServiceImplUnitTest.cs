@@ -26,7 +26,7 @@ public class ServiceImplUnitTest
     public void TestDefaultGet()
     {
         // Arrange
-        ServiceImpl service = new ServiceImpl();
+        ServiceImpl service = new();
         Pizza[] expected =
         {
             new Pizza("My first pizza"),

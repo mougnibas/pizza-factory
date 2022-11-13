@@ -15,10 +15,6 @@
 // You should have received a copy of the GNU General Public License
 // along with PizzaFactory.  If not, see <https://www.gnu.org/licenses/>.
 
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
-using Microsoft.Extensions.Hosting;
-using Mougnibas.PizzaFactory.Customer.Business;
 using Mougnibas.PizzaFactory.Customer.Contract;
 
 namespace Mougnibas.PizzaFactory.Customer.Ui.Blazor.Web

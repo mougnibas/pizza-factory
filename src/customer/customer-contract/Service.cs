@@ -39,7 +39,7 @@ namespace Mougnibas.PizzaFactory.Customer.Contract
         public Service(HttpClient httpClient)
         {
             this.httpClient = httpClient;
-        }       
+        }
 
         public Pizza[] Get()
         {
