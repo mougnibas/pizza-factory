@@ -16,21 +16,22 @@
 // along with PizzaFactory.  If not, see <https://www.gnu.org/licenses/>.
 
 
-namespace Mougnibas.PizzaFactory.Customer.Contract.Test;
-
-[TestClass]
-public class PizzaUnitTest
+namespace Mougnibas.PizzaFactory.Customer.Contract.Test
 {
-    [TestMethod]
-    public void TestDefaultConstructor()
+    [TestClass]
+    public class PizzaUnitTest
     {
-        // Arrange
-        Pizza expected = new("My awesome pizza");
+        [TestMethod]
+        public void TestDefaultConstructor()
+        {
+            // Arrange
+            Pizza expected = new("My awesome pizza");
 
-        // Act
-        Pizza actual = new("My awesome pizza");
+            // Act
+            Pizza actual = new("My awesome pizza");
 
-        // Assert
-        Assert.AreEqual(expected, actual);
+            // Assert
+            Assert.AreEqual(expected, actual);
+        }
     }
 }

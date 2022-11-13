@@ -17,26 +17,27 @@
 
 using Mougnibas.PizzaFactory.Customer.Contract;
 
-namespace Mougnibas.PizzaFactory.Customer.Business.Test;
-
-[TestClass]
-public class ServiceImplUnitTest
+namespace Mougnibas.PizzaFactory.Customer.Business.Test
 {
-    [TestMethod]
-    public void TestDefaultGet()
+    [TestClass]
+    public class ServiceImplUnitTest
     {
-        // Arrange
-        ServiceImpl service = new();
-        Pizza[] expected =
+        [TestMethod]
+        public void TestDefaultGet()
         {
+            // Arrange
+            ServiceCore service = new();
+            Pizza[] expected =
+            {
             new Pizza("My first pizza"),
             new Pizza("My second pizza")
         };
 
-        // Act
-        Pizza[] actual = service.Get();
+            // Act
+            Pizza[] actual = service.GetPizza();
 
-        // Assert
-        CollectionAssert.AreEqual(expected, actual);
+            // Assert
+            CollectionAssert.AreEqual(expected, actual);
+        }
     }
 }

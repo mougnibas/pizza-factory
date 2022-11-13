@@ -17,24 +17,25 @@
 
 using Mougnibas.PizzaFactory.Customer.Contract;
 
-namespace Mougnibas.PizzaFactory.Customer.Business;
-
-public class ServiceImpl : IService
+namespace Mougnibas.PizzaFactory.Customer.Business
 {
-    public Pizza[] Get()
+    public class ServiceCore : IService
     {
-        List<Pizza> pizzas = new()
+        public Pizza[] GetPizza()
+        {
+            List<Pizza> pizzas = new()
         {
             new Pizza("My first pizza"),
             new Pizza("My second pizza")
         };
-        return pizzas.ToArray();
-    }
+            return pizzas.ToArray();
+        }
 
-    public Task<Pizza[]> GetAsync()
-    {
-        Pizza[] syncResult = Get();
-        Task<Pizza[]> asyncResult = Task.FromResult(syncResult);
-        return asyncResult;
+        public Task<Pizza[]> GetPizzaAsync()
+        {
+            Pizza[] syncResult = GetPizza();
+            Task<Pizza[]> asyncResult = Task.FromResult(syncResult);
+            return asyncResult;
+        }
     }
 }

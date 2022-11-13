@@ -19,27 +19,27 @@ using Mougnibas.PizzaFactory.Customer.Contract;
 
 namespace Mougnibas.PizzaFactory.Customer.Ui.Blazor.Web
 {
-    public class Program
+    public sealed class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
-            var builder = WebApplication.CreateBuilder(args);
-            builder.Services.AddRazorPages();
-            builder.Services.AddServerSideBlazor();
+            WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+            _ = builder.Services.AddRazorPages();
+            _ = builder.Services.AddServerSideBlazor();
 
             // Add custom service (require an active microservice to be run)
-            builder.Services.AddSingleton<IService, Service>();
+            _ = builder.Services.AddSingleton<IService, ServiceConnector>();
 
-            var app = builder.Build();
+            WebApplication app = builder.Build();
 
-            app.UseHttpsRedirection();
+            _ = app.UseHttpsRedirection();
 
-            app.UseStaticFiles();
+            _ = app.UseStaticFiles();
 
-            app.UseRouting();
+            _ = app.UseRouting();
 
-            app.MapBlazorHub();
-            app.MapFallbackToPage("/_Host");
+            _ = app.MapBlazorHub();
+            _ = app.MapFallbackToPage("/_Host");
 
             app.Run();
         }

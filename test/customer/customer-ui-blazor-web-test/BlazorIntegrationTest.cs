@@ -22,125 +22,126 @@ using Mougnibas.PizzaFactory.Customer.Business;
 using Mougnibas.PizzaFactory.Customer.Contract;
 using System.Net;
 
-namespace Mougnibas.PizzaFactory.Customer.Ui.Blazor.Web.Test;
-
-/// <summary>
-/// See https://codeburst.io/integration-tests-for-asp-net-core-web-apis-using-mstest-f4e222a3bc8a.
-/// </summary>
-[TestClass]
-public class BlazorIntegrationTest
+namespace Mougnibas.PizzaFactory.Customer.Ui.Blazor.Web.Test
 {
-    private static WebApplicationFactory<Program> _factory;
-
-    [ClassInitialize]
-    public static void ClassInit(Microsoft.VisualStudio.TestTools.UnitTesting.TestContext testContext)
+    /// <summary>
+    /// See https://codeburst.io/integration-tests-for-asp-net-core-web-apis-using-mstest-f4e222a3bc8a.
+    /// </summary>
+    [TestClass]
+    public class BlazorIntegrationTest
     {
-        _factory = new WebApplicationFactory<Program>().WithWebHostBuilder(builder =>
+        private static WebApplicationFactory<Program> _factory;
+
+        [ClassInitialize]
+        public static void ClassInit(Microsoft.VisualStudio.TestTools.UnitTesting.TestContext testContext)
         {
-            builder.ConfigureServices(services =>
+            _factory = new WebApplicationFactory<Program>().WithWebHostBuilder(builder =>
             {
-                // Inject a standalone business service to bypass the microservice dependency.
-                // An end to end approch is needed to effectively test all the components.
-                // The workflow is supposed to be :
-                // ui --> business-connector --> microservice --> actual business logic code.
-                // With this workaround, this is simplified to :
-                // ui ------------------------------------------> actual business logic code.
-                services.AddSingleton<IService, ServiceImpl>();
+                builder.ConfigureServices(services =>
+                {
+                    // Inject a standalone business service to bypass the microservice dependency.
+                    // An end to end approch is needed to effectively test all the components.
+                    // The workflow is supposed to be :
+                    // ui --> business-connector --> microservice --> actual business logic code.
+                    // With this workaround, this is simplified to :
+                    // ui ------------------------------------------> actual business logic code.
+                    services.AddSingleton<IService, ServiceCore>();
+                });
             });
-        });
-    }
+        }
 
-    [TestMethod]
-    public async Task ShouldReturnSuccessResponseOnRoot()
-    {
-        // Arrange
-        var client = _factory.CreateDefaultClient();
-        var expected = HttpStatusCode.OK;
+        [TestMethod]
+        public async Task ShouldReturnSuccessResponseOnRoot()
+        {
+            // Arrange
+            var client = _factory.CreateDefaultClient();
+            var expected = HttpStatusCode.OK;
 
-        // Act
-        var response = await client.GetAsync("/");
-        var actual = response.StatusCode;
+            // Act
+            var response = await client.GetAsync("/");
+            var actual = response.StatusCode;
 
-        // Assert
-        Assert.AreEqual(expected, actual);
-    }
+            // Assert
+            Assert.AreEqual(expected, actual);
+        }
 
-    [TestMethod]
-    public async Task ShouldReturnSuccessResponseOnPathUiPizza()
-    {
-        // Arrange
-        var client = _factory.CreateDefaultClient();
-        var expected = HttpStatusCode.OK;
+        [TestMethod]
+        public async Task ShouldReturnSuccessResponseOnPathUiPizza()
+        {
+            // Arrange
+            var client = _factory.CreateDefaultClient();
+            var expected = HttpStatusCode.OK;
 
-        // Act
-        var response = await client.GetAsync("/ui/pizza");
-        var actual = response.StatusCode;
+            // Act
+            var response = await client.GetAsync("/ui/pizza");
+            var actual = response.StatusCode;
 
-        // Assert
-        Assert.AreEqual(expected, actual);
-    }
+            // Assert
+            Assert.AreEqual(expected, actual);
+        }
 
-    [TestMethod]
-    public void ShouldReturnThisExactRawMarkup()
-    {
-        // Arrange
-        // We need to inject AGAIN the service because of bunit.
-        using var context = new Bunit.TestContext();
-        context.Services.AddSingleton<IService, ServiceImpl>();
-        var expected = @"<h1>Hello, world!</h1>
+        [TestMethod]
+        public void ShouldReturnThisExactRawMarkup()
+        {
+            // Arrange
+            // We need to inject AGAIN the service because of bunit.
+            using var context = new Bunit.TestContext();
+            context.Services.AddSingleton<IService, ServiceCore>();
+            var expected = @"<h1>Hello, world!</h1>
 <h2>Pizza list :</h2>
 <ul><li>My first pizza</li><li>My second pizza</li></ul>";
 
-        // Act
-        var componentUnderTest = context.RenderComponent<Pages.Index>();
-        var actual = componentUnderTest.Markup;
+            // Act
+            var componentUnderTest = context.RenderComponent<Pages.Index>();
+            var actual = componentUnderTest.Markup;
 
-        // Assert
-        Assert.AreEqual(expected, actual);
-    }
+            // Assert
+            Assert.AreEqual(expected, actual);
+        }
 
-    [TestMethod]
-    public void ShouldReturnThisH1()
-    {
-        // Arrange
-        // We need to inject AGAIN the service because of bunit.
-        using var context = new Bunit.TestContext();
-        context.Services.AddSingleton<IService, ServiceImpl>();
-        var expected = @"
+        [TestMethod]
+        public void ShouldReturnThisH1()
+        {
+            // Arrange
+            // We need to inject AGAIN the service because of bunit.
+            using var context = new Bunit.TestContext();
+            context.Services.AddSingleton<IService, ServiceCore>();
+            var expected = @"
 <h1>Hello, world!</h1>";
 
-        // Act
-        var componentUnderTest = context.RenderComponent<Pages.Index>();
-        var actual = componentUnderTest.Find("h1").ToMarkup();
+            // Act
+            var componentUnderTest = context.RenderComponent<Pages.Index>();
+            var actual = componentUnderTest.Find("h1").ToMarkup();
 
-        // Assert
-        Assert.AreEqual(expected, actual);
-    }
+            // Assert
+            Assert.AreEqual(expected, actual);
+        }
 
-    [TestMethod]
-    public void ShouldReturnThisUl()
-    {
-        // Arrange
-        // We need to inject AGAIN the service because of bunit.
-        using var context = new Bunit.TestContext();
-        context.Services.AddSingleton<IService, ServiceImpl>();
-        var expected = @"
+        [TestMethod]
+        public void ShouldReturnThisUl()
+        {
+            // Arrange
+            // We need to inject AGAIN the service because of bunit.
+            using var context = new Bunit.TestContext();
+            context.Services.AddSingleton<IService, ServiceCore>();
+            var expected = @"
 <ul>
   <li>My first pizza</li>
   <li>My second pizza</li>
 </ul>";
 
-        // Act
-        var componentUnderTest = context.RenderComponent<Pages.Index>();
-        var actual = componentUnderTest.Find("ul").ToMarkup();
+            // Act
+            var componentUnderTest = context.RenderComponent<Pages.Index>();
+            var actual = componentUnderTest.Find("ul").ToMarkup();
 
-        // Assert
-        Assert.AreEqual(expected, actual);
-    }
+            // Assert
+            Assert.AreEqual(expected, actual);
+        }
 
-    [ClassCleanup]
-    public static void ClassCleanup()
-    {
-        _factory.Dispose();
+        [ClassCleanup]
+        public static void ClassCleanup()
+        {
+            _factory.Dispose();
+        }
     }
 }

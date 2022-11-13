@@ -1,14 +1,35 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <!-- Base properties -->
-  <ItemGroup>
-    <ProjectReference Include="..\customer-contract\customer-contract.csproj" />
-  </ItemGroup>
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <RootNamespace>Mougnibas.PizzaFactory.Customer.Business</RootNamespace>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+	<!-- Base properties -->
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<RootNamespace>Mougnibas.PizzaFactory.Customer.Business</RootNamespace>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<!-- Private dependencies-->
+	<ItemGroup>
+		<ProjectReference Include="..\customer-contract\customer-contract.csproj" />
+	</ItemGroup>
+
+	<!-- Enable code-style analysis (highest level) -->
+	<!-- See https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/overview -->
+	<PropertyGroup>
+		<AnalysisLevel>6.0-all</AnalysisLevel>
+		<AnalysisModeDesign>All</AnalysisModeDesign>
+		<AnalysisModeDocumentation>All</AnalysisModeDocumentation>
+		<AnalysisModeGlobalization>All</AnalysisModeGlobalization>
+		<AnalysisModeInteroperability>All</AnalysisModeInteroperability>
+		<AnalysisModeMaintainability>All</AnalysisModeMaintainability>
+		<AnalysisModeNaming>All</AnalysisModeNaming>
+		<AnalysisModePerformance>All</AnalysisModePerformance>
+		<AnalysisModeSingleFile>All</AnalysisModeSingleFile>
+		<AnalysisModeReliability>All</AnalysisModeReliability>
+		<AnalysisModeSecurity>All</AnalysisModeSecurity>
+		<AnalysisModeStyle>All</AnalysisModeStyle>
+		<AnalysisModeUsage>All</AnalysisModeUsage>
+		<EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+	</PropertyGroup>
 
 </Project>

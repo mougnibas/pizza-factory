@@ -42,7 +42,7 @@ namespace Mougnibas.PizzaFactory.Customer.Contract
         public override bool Equals(object? obj)
         {
             return obj is Pizza pizza &&
-                   this.ToString().Equals(pizza.ToString(), StringComparison.InvariantCulture);
+                   this.ToString().Equals(pizza.ToString(), StringComparison.Ordinal);
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace Mougnibas.PizzaFactory.Customer.Contract
         /// <returns>the hashcode of this object.</returns>
         public override int GetHashCode()
         {
-            return this.ToString().GetHashCode(StringComparison.InvariantCulture);
+            return this.ToString().GetHashCode(StringComparison.Ordinal);
         }
 
         /// <summary>
