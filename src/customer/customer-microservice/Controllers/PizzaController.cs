@@ -44,6 +44,6 @@ public class PizzaController : ControllerBase
             _logger.LogInformation("Get is invoked");
         }
 
-        return _service.Get();
+        return _service.GetPizza();
     }
 }

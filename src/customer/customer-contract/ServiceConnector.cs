@@ -19,7 +19,7 @@ using System.Text.Json;
 
 namespace Mougnibas.PizzaFactory.Customer.Contract
 {
-    public class Service : IService
+    public sealed class ServiceConnector : IService, IDisposable
     {
 
         private readonly HttpClient httpClient;
@@ -27,7 +27,7 @@ namespace Mougnibas.PizzaFactory.Customer.Contract
         /// <summary>
         /// This constructor create a http client on it's own (bad practice).
         /// </summary>
-        public Service()
+        public ServiceConnector()
         {
             this.httpClient = new HttpClient();
         }
@@ -36,29 +36,59 @@ namespace Mougnibas.PizzaFactory.Customer.Contract
         /// This constructor require an injection of a http client.
         /// </summary>
         /// <param name="httpClient">The injected http client.</param>
-        public Service(HttpClient httpClient)
+        public ServiceConnector(HttpClient httpClient)
         {
             this.httpClient = httpClient;
         }
 
-        public Pizza[] Get()
+        public Pizza[] GetPizza()
         {
             // TODO This synchronous method is actually never tested.
 
             // URL to call
-            string uri = "http://localhost:5034/api/pizza";
+            Uri uri = new("http://localhost:5034/api/pizza");
 
-            // Make a synchronous call to get a json result
-            HttpRequestMessage request = new(HttpMethod.Get, uri);
-            HttpResponseMessage response = httpClient.Send(request);
-            response.EnsureSuccessStatusCode();
-            HttpContent content = response.Content;
-            StreamReader reader = new(content.ReadAsStream());
-            string jsonString = reader.ReadToEnd();
+            Pizza[]? result;
+            using (HttpRequestMessage request = new(HttpMethod.Get, uri))
+            {
+                // Make a synchronous call to get a json result
+                HttpResponseMessage response = httpClient.Send(request);
+                _ = response.EnsureSuccessStatusCode();
+                HttpContent content = response.Content;
+
+                using (StreamReader reader = new(content.ReadAsStream()))
+                {
+                    // Get the json from the stream
+                    string jsonString = reader.ReadToEnd();
+
+                    // Deserialize the json
+                    // We need to use this option to do it properly
+                    JsonSerializerOptions options = new()
+                    {
+                        PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+                    };
+                    result = JsonSerializer.Deserialize<Pizza[]>(jsonString, options);
+                }
+
+                // We could get a null result, but we can't return a null value
+                result ??= Array.Empty<Pizza>();
+            }
+
+            // Return the result
+            return result;
+        }
+
+        public async Task<Pizza[]> GetPizzaAsync()
+        {
+            // URL to call
+            Uri uri = new("http://localhost/api/pizza");
+
+            // Make an asynchronous call to get a json result
+            string jsonString = await httpClient.GetStringAsync(uri).ConfigureAwait(false);
 
             // Deserialize the json
             // We need to use this option to do it properly
-            var options = new JsonSerializerOptions
+            JsonSerializerOptions options = new()
             {
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase
             };
@@ -71,27 +101,9 @@ namespace Mougnibas.PizzaFactory.Customer.Contract
             return result;
         }
 
-        public async Task<Pizza[]> GetAsync()
+        public void Dispose()
         {
-            // URL to call
-            string uri = "api/pizza";
-
-            // Make an asynchronous call to get a json result
-            string jsonString = await httpClient.GetStringAsync(uri);
-
-            // Deserialize the json
-            // We need to use this option to do it properly
-            var options = new JsonSerializerOptions
-            {
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-            };
-            Pizza[]? result = JsonSerializer.Deserialize<Pizza[]>(jsonString, options);
-
-            // We could get a null result, but we can't return a null value
-            result ??= Array.Empty<Pizza>();
-
-            // Return the result
-            return result;
+            httpClient.Dispose();
         }
     }
 }

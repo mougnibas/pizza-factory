@@ -34,7 +34,7 @@ namespace Mougnibas.PizzaFactory.Customer.Microservice
             builder.Services.AddSwaggerGen();
 
             // Add business service
-            builder.Services.AddSingleton<IService, ServiceImpl>();
+            builder.Services.AddSingleton<IService, ServiceCore>();
 
             var app = builder.Build();
 

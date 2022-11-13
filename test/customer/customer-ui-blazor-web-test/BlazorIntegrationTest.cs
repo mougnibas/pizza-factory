@@ -45,7 +45,7 @@ public class BlazorIntegrationTest
                 // ui --> business-connector --> microservice --> actual business logic code.
                 // With this workaround, this is simplified to :
                 // ui ------------------------------------------> actual business logic code.
-                services.AddSingleton<IService, ServiceImpl>();
+                services.AddSingleton<IService, ServiceCore>();
             });
         });
     }
@@ -86,7 +86,7 @@ public class BlazorIntegrationTest
         // Arrange
         // We need to inject AGAIN the service because of bunit.
         using var context = new Bunit.TestContext();
-        context.Services.AddSingleton<IService, ServiceImpl>();
+        context.Services.AddSingleton<IService, ServiceCore>();
         var expected = @"<h1>Hello, world!</h1>
 <h2>Pizza list :</h2>
 <ul><li>My first pizza</li><li>My second pizza</li></ul>";
@@ -105,7 +105,7 @@ public class BlazorIntegrationTest
         // Arrange
         // We need to inject AGAIN the service because of bunit.
         using var context = new Bunit.TestContext();
-        context.Services.AddSingleton<IService, ServiceImpl>();
+        context.Services.AddSingleton<IService, ServiceCore>();
         var expected = @"
 <h1>Hello, world!</h1>";
 
@@ -123,7 +123,7 @@ public class BlazorIntegrationTest
         // Arrange
         // We need to inject AGAIN the service because of bunit.
         using var context = new Bunit.TestContext();
-        context.Services.AddSingleton<IService, ServiceImpl>();
+        context.Services.AddSingleton<IService, ServiceCore>();
         var expected = @"
 <ul>
   <li>My first pizza</li>

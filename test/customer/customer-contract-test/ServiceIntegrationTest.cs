@@ -43,7 +43,7 @@ public class ServiceIntegrationTest
     {
         // Arrange
         HttpClient httpClient = _factory.CreateDefaultClient();
-        Service service = new(httpClient);
+        ServiceConnector service = new(httpClient);
         Pizza[] expected =
         {
             new Pizza("My first pizza"),
@@ -51,7 +51,7 @@ public class ServiceIntegrationTest
         };
 
         // Act
-        Pizza[] actual = await service.GetAsync();
+        Pizza[] actual = await service.GetPizzaAsync();
 
         // Assert
         CollectionAssert.AreEqual(expected, actual);

@@ -26,7 +26,7 @@ public class ServiceImplUnitTest
     public void TestDefaultGet()
     {
         // Arrange
-        ServiceImpl service = new();
+        ServiceCore service = new();
         Pizza[] expected =
         {
             new Pizza("My first pizza"),
@@ -34,7 +34,7 @@ public class ServiceImplUnitTest
         };
 
         // Act
-        Pizza[] actual = service.Get();
+        Pizza[] actual = service.GetPizza();
 
         // Assert
         CollectionAssert.AreEqual(expected, actual);
