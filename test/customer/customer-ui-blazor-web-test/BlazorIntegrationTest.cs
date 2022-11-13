@@ -16,9 +16,11 @@
 // along with PizzaFactory.  If not, see <https://www.gnu.org/licenses/>.
 
 
+using Bunit;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Mougnibas.PizzaFactory.Customer.Business;
 using Mougnibas.PizzaFactory.Customer.Contract;
+using Mougnibas.PizzaFactory.Customer.Ui.Blazor.Web;
 using System.Net;
 
 namespace Mougnibas.PizzaFactory.Customer.Ui.Blazor.Web.Test;
@@ -32,22 +34,25 @@ public class BlazorIntegrationTest
     private static WebApplicationFactory<Program> _factory;
 
     [ClassInitialize]
-    public static void ClassInit(TestContext testContext)
+    public static void ClassInit(Microsoft.VisualStudio.TestTools.UnitTesting.TestContext testContext)
     {
         _factory = new WebApplicationFactory<Program>().WithWebHostBuilder(builder =>
         {
             builder.ConfigureServices(services =>
             {
                 // Inject a standalone business service to bypass the microservice dependency.
-                // An end to end approch is needed to effectively test all the components :
+                // An end to end approch is needed to effectively test all the components.
+                // The workflow is supposed to be :
                 // ui --> business-connector --> microservice --> actual business logic code.
+                // With this workaround, this is simplified to :
+                // ui ------------------------------------------> actual business logic code.
                 services.AddSingleton<IService, ServiceImpl>();
             });
         });
     }
 
     [TestMethod]
-    public async Task ShouldReturnSuccessResponse()
+    public async Task ShouldReturnSuccessResponseOnRoot()
     {
         // Arrange
         var client = _factory.CreateDefaultClient();
@@ -60,6 +65,80 @@ public class BlazorIntegrationTest
         // Assert
         Assert.AreEqual(expected, actual);
     }
+
+    [TestMethod]
+    public async Task ShouldReturnSuccessResponseOnPathUiPizza()
+    {
+        // Arrange
+        var client = _factory.CreateDefaultClient();
+        var expected = HttpStatusCode.OK;
+
+        // Act
+        var response = await client.GetAsync("/ui/pizza");
+        var actual = response.StatusCode;
+
+        // Assert
+        Assert.AreEqual(expected, actual);
+    }
+
+    [TestMethod]
+    public void ShouldReturnThisExactRawMarkup()
+    {
+        // Arrange
+        // We need to inject AGAIN the service because of bunit.
+        using var context = new Bunit.TestContext();
+        context.Services.AddSingleton<IService, ServiceImpl>();
+        var expected = @"<h1>Hello, world!</h1>
+<h2>Pizza list :</h2>
+<ul><li>My first pizza</li><li>My second pizza</li></ul>";
+
+        // Act
+        var componentUnderTest = context.RenderComponent<Pages.Index>();
+        var actual = componentUnderTest.Markup;
+
+        // Assert
+        Assert.AreEqual(expected, actual);
+    }
+
+    [TestMethod]
+    public void ShouldReturnThisH1()
+    {
+        // Arrange
+        // We need to inject AGAIN the service because of bunit.
+        using var context = new Bunit.TestContext();
+        context.Services.AddSingleton<IService, ServiceImpl>();
+        var expected = @"
+<h1>Hello, world!</h1>";
+
+        // Act
+        var componentUnderTest = context.RenderComponent<Pages.Index>();
+        var actual = componentUnderTest.Find("h1").ToMarkup();
+
+        // Assert
+        Assert.AreEqual(expected, actual);
+    }
+
+    [TestMethod]
+    public void ShouldReturnThisUl()
+    {
+        // Arrange
+        // We need to inject AGAIN the service because of bunit.
+        using var context = new Bunit.TestContext();
+        context.Services.AddSingleton<IService, ServiceImpl>();
+        var expected = @"
+<ul>
+  <li>My first pizza</li>
+  <li>My second pizza</li>
+</ul>";
+
+        // Act
+        var componentUnderTest = context.RenderComponent<Pages.Index>();
+        var actual = componentUnderTest.Find("ul").ToMarkup();
+
+        // Assert
+        Assert.AreEqual(expected, actual);
+    }
+
     [ClassCleanup]
     public static void ClassCleanup()
     {
